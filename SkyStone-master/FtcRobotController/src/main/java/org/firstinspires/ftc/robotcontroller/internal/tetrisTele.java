@@ -2,15 +2,22 @@ package org.firstinspires.ftc.robotcontroller.internal;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-@TeleOp(name = "mecanum", group = "9191")
-public class mecanum extends OpMode {
+//All directions "left/right" are facing from the back
+@TeleOp(name = "tetrisTele", group = "9191")
+public class tetrisTele extends OpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
+    private DcMotor inLeft;
+    private DcMotor inRight;
+    private DcMotor armLift;
+    private DcMotor dragFoundation;
+    private CRServo grabBlock;
+    private CRServo rotateBlock;
+
 
     @Override
     public void init() {
@@ -18,9 +25,12 @@ public class mecanum extends OpMode {
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
         backRight = hardwareMap.dcMotor.get("BR");
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        inLeft = hardwareMap.dcMotor.get("IL");
+        inRight = hardwareMap.dcMotor.get("IR");
+        armLift = hardwareMap.dcMotor.get("AL");
+        dragFoundation = hardwareMap.dcMotor.get("DF");
+        grabBlock = hardwareMap.crservo.get("GB");
+        rotateBlock = hardwareMap.crservo.get("RB");
     }
 
     @Override
@@ -37,9 +47,22 @@ public class mecanum extends OpMode {
         frontRight.setPower(v2);
         backLeft.setPower(v3);
         backRight.setPower(v4);
-        telemetry.addData("r", r);
-        telemetry.addData("theta", robotAngle);
-        telemetry.addData("power13", v1);
-        telemetry.addData("power24", v2);
+        inLeft.setPower(gamepad2.right_stick_y);
+        inRight.setPower(-gamepad2.right_stick_y);
+        armLift.setPower(gamepad2.left_stick_y);
+
+        if(gamepad2.a){
+            grabBlock.setPower(1);
+        } else if(gamepad2.y){
+            grabBlock.setPower(-1);
+        } else{
+            grabBlock.setPower(0);
+        } if(gamepad2.x){
+            rotateBlock.setPower(1);
+        } else if(gamepad2.b){
+            rotateBlock.setPower(-1);
+        } else{
+            rotateBlock.setPower(0);
+        }
     }
 }

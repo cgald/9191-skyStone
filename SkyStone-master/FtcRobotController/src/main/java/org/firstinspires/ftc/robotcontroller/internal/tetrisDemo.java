@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "testTetris", group = "9191")
-public class testTetris extends OpMode {
+@TeleOp(name = "tetrisDemo", group = "9191")
+public class tetrisDemo extends OpMode {
     private DcMotor motor1;
     private DcMotor motor2;
     private DcMotor motor3;
