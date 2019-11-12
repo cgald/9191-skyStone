@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.robotcontroller.internal;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "RevTele", group = "9191")
 //All directions "left/right" are facing from the back
@@ -17,6 +19,7 @@ public class RevTele extends OpMode {
     private DcMotor armLift;
     private CRServo gripperLeft;
     private CRServo gripperRight;
+    private Servo foundationMove;
 
     @Override
     public void init() {
@@ -24,14 +27,19 @@ public class RevTele extends OpMode {
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
         backRight = hardwareMap.dcMotor.get("BR");
-        inLeft = hardwareMap.dcMotor.get("IL");
-        inRight = hardwareMap.dcMotor.get("IR");
+       /* inLeft = hardwareMap.dcMotor.get("IL");
+        inRight = hardwareMap.dcMotor.get("IR");*/
         armLift = hardwareMap.dcMotor.get("AL");
         gripperLeft = hardwareMap.crservo.get("GF");
         gripperRight = hardwareMap.crservo.get("GB");
+        foundationMove = hardwareMap.servo.get("FM");
+        //TODO: Add 2nd foundation move
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        foundationMove.setPosition(1);
 
+
+        //Color sensor blocks: Normal = 80, skystone = 120
     }
 
     @Override
@@ -51,10 +59,24 @@ public class RevTele extends OpMode {
         frontRight.setPower(v2);
         backLeft.setPower(v3);
         backRight.setPower(v4);
-        inLeft.setPower(gamepad2.right_stick_y * .5); //left input input
-        inRight.setPower(-gamepad2.right_stick_y * .5); //right input input
-        armLift.setPower(gamepad2.left_stick_y); //arm input
-
+        inLeft.setPower(-gamepad2.right_stick_y * .5); //left input input
+        inRight.setPower(gamepad2.right_stick_y * .5); //right input input
+        armLift.setPower(-gamepad2.left_stick_y * .5); //arm input
+        /*
+        if(gamepad2.left_bumper){
+            gripperLeft.setPosition(1);
+            gripperRight.setPosition(1);
+        } else if(gamepad2.right_bumper){
+            gripperLeft.setPosition(0);
+            gripperRight.setPosition(0);
+        } else if(gamepad2.a){
+            gripperLeft.setPosition(gripperLeft.getPosition() + .01)
+            gripperRight.setPosition(gripperRight.getPosition() + .01)
+        } else if(gamepad2.y){
+            gripperLeft.setPosition(gripperLeft.getPosition() - .01)
+            gripperRight.setPosition(gripperRight.getPosition() - .01)
+        }
+        */
         if(gamepad2.a){
             gripperLeft.setPower(1);
             gripperRight.setPower(1);
@@ -64,6 +86,11 @@ public class RevTele extends OpMode {
         } else{
             gripperLeft.setPower(0);
             gripperRight.setPower(0);
+        } if(gamepad1.left_bumper){
+            foundationMove.setPosition(foundationMove.getPosition() - .01);
+        } else if(gamepad1.right_bumper){
+            foundationMove.setPosition(foundationMove.getPosition() + .01);
         }
+        telemetry.addData("FM pos", foundationMove.getPosition());
     }
 }
