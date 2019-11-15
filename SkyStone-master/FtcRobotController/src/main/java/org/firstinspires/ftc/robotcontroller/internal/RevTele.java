@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "RevTele", group = "9191")
 //All directions "left/right" are facing from the back
+//All of these are setting the motor names to their respective variable types
 public class RevTele extends OpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
@@ -19,27 +20,27 @@ public class RevTele extends OpMode {
     private DcMotor armLift;
     private CRServo gripperLeft;
     private CRServo gripperRight;
-    private Servo foundationMove;
+    private Servo foundationOne;
+    private Servo foundationTwo;
 
     @Override
     public void init() {
+        //Front Left and Right Wheel Motors, and Back Left and Right Wheel Motors Variable Setting
         frontLeft = hardwareMap.dcMotor.get("FL");
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
         backRight = hardwareMap.dcMotor.get("BR");
-       /* inLeft = hardwareMap.dcMotor.get("IL");
+        /* inLeft = hardwareMap.dcMotor.get("IL"); //Depreciated Intake Left and Right Motors
         inRight = hardwareMap.dcMotor.get("IR");*/
-        armLift = hardwareMap.dcMotor.get("AL");
-        gripperLeft = hardwareMap.crservo.get("GF");
+       armLift = hardwareMap.dcMotor.get("AL");
+        gripperLeft = hardwareMap.crservo.get("GF"); //Front and Back Variable
         gripperRight = hardwareMap.crservo.get("GB");
-        foundationMove = hardwareMap.servo.get("FM");
-        //TODO: Add 2nd foundation move
+        foundationOne = hardwareMap.servo.get("F1");
+        foundationTwo = hardwareMap.servo.get("F2");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        foundationMove.setPosition(1);
-
-
-        //Color sensor blocks: Normal = 80, skystone = 120
+        foundationOne.setPosition(1);
+        foundationTwo.setPosition(1);
     }
 
     @Override
@@ -54,14 +55,11 @@ public class RevTele extends OpMode {
         final double v3 = r * Math.sin(robotAngle) + rightX;
         final double v4 = r * Math.cos(robotAngle) - rightX;
 
-
         frontLeft.setPower(v1);
         frontRight.setPower(v2);
         backLeft.setPower(v3);
         backRight.setPower(v4);
-        inLeft.setPower(-gamepad2.right_stick_y * .5); //left input input
-        inRight.setPower(gamepad2.right_stick_y * .5); //right input input
-        armLift.setPower(-gamepad2.left_stick_y * .5); //arm input
+        armLift.setPower(-gamepad2.left_stick_y * .65); //arm input
         /*
         if(gamepad2.left_bumper){
             gripperLeft.setPosition(1);
@@ -86,11 +84,14 @@ public class RevTele extends OpMode {
         } else{
             gripperLeft.setPower(0);
             gripperRight.setPower(0);
-        } if(gamepad1.left_bumper){
-            foundationMove.setPosition(foundationMove.getPosition() - .01);
-        } else if(gamepad1.right_bumper){
-            foundationMove.setPosition(foundationMove.getPosition() + .01);
+        } if(gamepad1.dpad_up){
+            foundationOne.setPosition(foundationOne.getPosition() + .01);
+        } else if(gamepad1.dpad_down){
+            foundationOne.setPosition(foundationOne.getPosition() - .01);
+        } if(gamepad1.y){
+            foundationTwo.setPosition(foundationOne.getPosition() + .01);
+        } else if(gamepad1.a){
+            foundationTwo.setPosition(foundationOne.getPosition() - .01);
         }
-        telemetry.addData("FM pos", foundationMove.getPosition());
     }
 }

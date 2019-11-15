@@ -54,10 +54,9 @@ public class tetrisTele extends OpMode {
         frontRight.setPower(v2);
         backLeft.setPower(v3);
         backRight.setPower(v4);
-       inLeft.setPower(gamepad2.right_stick_y);
+        inLeft.setPower(gamepad2.right_stick_y);
         inRight.setPower(-gamepad2.right_stick_y);
-        armLift.setPower(gamepad2.left_stick_y); 
-
+        armLift.setPower(gamepad2.left_stick_y);
         if(gamepad2.a){
             grabBlock.setPower(1);
         } else if(gamepad2.y){
