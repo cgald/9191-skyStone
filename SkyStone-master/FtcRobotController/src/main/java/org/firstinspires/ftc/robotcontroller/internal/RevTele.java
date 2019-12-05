@@ -72,7 +72,7 @@ public class RevTele extends OpMode {
         } else if(gamepad1.dpad_down){
             foundationOne.setPosition(foundationOne.getPosition() - .01);
         } if(gamepad1.y){
-            foundationTwo.setPosition(foundationOne.getPosition() + .01);
+            foundationTwo.setPosition(foundationTwo.getPosition() + .01);
         } else if(gamepad1.a){
             foundationTwo.setPosition(foundationOne.getPosition() - .01);
         } if(gamepad1.left_bumper){
