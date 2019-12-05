@@ -21,6 +21,11 @@ public class revAuto extends LinearOpMode {
         backLeft.setPower(power);
         backRight.setPower(power);
         sleep(runtime);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+
     }
 
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
@@ -29,6 +34,10 @@ public class revAuto extends LinearOpMode {
         backLeft.setPower(power);
         backRight.setPower(-power);
         sleep(runtime);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
     }
 
     private void turn(double power, int runtime) { //Positive power = right, Negative power = left
@@ -37,12 +46,15 @@ public class revAuto extends LinearOpMode {
         backLeft.setPower(-power);
         backRight.setPower(power);
         sleep(runtime);
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
     }
 
-    private void foundation(double power, int runtime){ //Positive power = up, Negative power = down
-        foundationOne.setPosition(foundationOne.getPosition() - power * .01);
-        foundationTwo.setPosition(foundationTwo.getPosition() - power * .01);
-        sleep(runtime);
+    private void foundation(double pos){ //Positive power = up, Negative power = down
+        foundationOne.setPosition(pos);
+        foundationTwo.setPosition(pos);
     }
     @Override
     public void runOpMode() throws InterruptedException {
@@ -59,9 +71,9 @@ public class revAuto extends LinearOpMode {
 
         sideways(-.5, 1000);
         forward(-.5, 1000);
-        foundation(-.5, 500);
+        foundation(.5);
         forward(.5, 1000);
-        foundation(.5, 500);
+        foundation(.5);
         sideways(-.5, 1000);
         forward(-.5, 1000);
         sideways(.5, 1000);
