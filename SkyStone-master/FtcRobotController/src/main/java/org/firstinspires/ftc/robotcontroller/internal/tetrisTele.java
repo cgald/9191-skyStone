@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 //All directions "left/right" are facing from the back
 @TeleOp(name = "tetrisTele", group = "9191")
@@ -17,7 +18,7 @@ public class tetrisTele extends OpMode {
     private DcMotor inRight;
     private DcMotor armLift;
     private CRServo foundationMove;
-    private CRServo grabBlock;
+    private Servo grabBlock;
     private CRServo rotateBlock;
 
 
@@ -31,10 +32,11 @@ public class tetrisTele extends OpMode {
         inRight = hardwareMap.dcMotor.get("IR");
         armLift = hardwareMap.dcMotor.get("AL");
         foundationMove = hardwareMap.crservo.get("FM");
-        grabBlock = hardwareMap.crservo.get("GB");
+        grabBlock = hardwareMap.servo.get("GB");
         rotateBlock = hardwareMap.crservo.get("RB");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
     }
 
     @Override
@@ -49,7 +51,6 @@ public class tetrisTele extends OpMode {
         final double v3 = r * Math.sin(robotAngle) + rightX;
         final double v4 = r * Math.cos(robotAngle) - rightX;
 
-
         frontLeft.setPower(v1);
         frontRight.setPower(v2);
         backLeft.setPower(v3);
@@ -58,11 +59,9 @@ public class tetrisTele extends OpMode {
         inRight.setPower(-gamepad2.right_stick_y);
         armLift.setPower(gamepad2.left_stick_y);
         if(gamepad2.a){
-            grabBlock.setPower(1);
+            grabBlock.setPosition(grabBlock.getPosition() - .01);
         } else if(gamepad2.y){
-            grabBlock.setPower(-1);
-        } else{
-            grabBlock.setPower(0);
+            grabBlock.setPosition(grabBlock.getPosition() + .01);
         } if(gamepad2.x){
             rotateBlock.setPower(1);
         } else if(gamepad2.b){
