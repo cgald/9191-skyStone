@@ -15,13 +15,12 @@ public class RevTele extends OpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private DcMotor inLeft;
-    private DcMotor inRight;
     private DcMotor armLift;
     private CRServo gripperLeft;
     private CRServo gripperRight;
     private Servo foundationOne;
     private Servo foundationTwo;
+    private Servo capStone;
 
     @Override
     public void init() {
@@ -30,13 +29,12 @@ public class RevTele extends OpMode {
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
         backRight = hardwareMap.dcMotor.get("BR");
-        /* inLeft = hardwareMap.dcMotor.get("IL"); //Depreciated Intake Left and Right Motors
-        inRight = hardwareMap.dcMotor.get("IR");*/
        armLift = hardwareMap.dcMotor.get("AL");
         gripperLeft = hardwareMap.crservo.get("GF"); //Front and Back Variable
         gripperRight = hardwareMap.crservo.get("GB");
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
+        capStone = hardwareMap.servo.get("CS");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         foundationOne.setPosition(1);
@@ -60,21 +58,6 @@ public class RevTele extends OpMode {
         backLeft.setPower(v3);
         backRight.setPower(v4);
         armLift.setPower(-gamepad2.left_stick_y * .65); //arm input
-        /*
-        if(gamepad2.left_bumper){
-            gripperLeft.setPosition(1);
-            gripperRight.setPosition(1);
-        } else if(gamepad2.right_bumper){
-            gripperLeft.setPosition(0);
-            gripperRight.setPosition(0);
-        } else if(gamepad2.a){
-            gripperLeft.setPosition(gripperLeft.getPosition() + .01)
-            gripperRight.setPosition(gripperRight.getPosition() + .01)
-        } else if(gamepad2.y){
-            gripperLeft.setPosition(gripperLeft.getPosition() - .01)
-            gripperRight.setPosition(gripperRight.getPosition() - .01)
-        }
-        */
         if(gamepad2.a){
             gripperLeft.setPower(1);
             gripperRight.setPower(1);
@@ -92,6 +75,11 @@ public class RevTele extends OpMode {
             foundationTwo.setPosition(foundationOne.getPosition() + .01);
         } else if(gamepad1.a){
             foundationTwo.setPosition(foundationOne.getPosition() - .01);
+        } if(gamepad1.left_bumper){
+            capStone.setPosition(capStone.getPosition() - .005);
+        } else if(gamepad1.right_bumper){
+            capStone.setPosition(capStone.getPosition() + .005);
         }
+        telemetry.addData("Power: ", "%.2f", gamepad1.left_stick_y);
     }
 }

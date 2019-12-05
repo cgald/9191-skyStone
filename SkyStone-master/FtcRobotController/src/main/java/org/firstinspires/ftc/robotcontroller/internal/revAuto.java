@@ -1,13 +1,19 @@
 package org.firstinspires.ftc.robotcontroller.internal;
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import java.util.Locale;
 
-//Color sensor blocks: Normal = 80, skystone = 120
+//colorSensor sensor blocks: Normal = 80, skystone = 120
 
 @Autonomous(name = "revAuto", group = "9191")
 public class revAuto extends LinearOpMode {
@@ -17,8 +23,8 @@ public class revAuto extends LinearOpMode {
     private DcMotor backRight;
     private Servo foundationOne;
     private Servo foundationTwo;
-    private ColorSensor color;
-
+    ColorSensor colorSensor;
+    DistanceSensor distanceSensor;
 
     private void forward(double power, int runtime) { //Positive power = forward, Negative power = backward
         frontLeft.setPower(power);
@@ -45,7 +51,6 @@ public class revAuto extends LinearOpMode {
         foundationOne.setPosition(foundationOne.getPosition() - power * .01);
         foundationTwo.setPosition(foundationTwo.getPosition() - power * .01);
     }
-
     @Override
     public void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("FL");
@@ -54,27 +59,36 @@ public class revAuto extends LinearOpMode {
         backRight = hardwareMap.dcMotor.get("BR");
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
-        color = hardwareMap.colorSensor.get("color");
+        colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        float hsvValues[] =  {0F, 0F, 0F};
+        final float values[] = hsvValues;
+        final double SCALE_FACTOR = 255;
+        colorSensor.red();   // Red channel value
+        colorSensor.green(); // Green channel value
+        colorSensor.blue();  // Blue channel value
+        colorSensor.alpha(); // Total luminosity
+        colorSensor.argb();  // Combined colorSensor value
+        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
         waitForStart();
-        color.red();   // Red channel value
-        color.green(); // Green channel value
-        color.blue();  // Blue channel value
-        color.alpha(); // Total luminosity
-        color.argb();  // Combined color value
-
-        forward(1, 1000);
-        while(color.alpha() < 110){
-            sideways(.25, 50);
-        }
-        //TODO: Add skystone arm
-
+        Color.RGBToHSV((int) (colorSensor.red() * SCALE_FACTOR), (int) (colorSensor.green() * SCALE_FACTOR), (int) (colorSensor.blue() * SCALE_FACTOR), hsvValues);
+        while(opModeIsActive()) {
+/*        forward(1, 1000);
         forward(-1, 1000);
 
         sideways(-1, 1000);
-
-        telemetry.addData("argb: ", color.argb());
+*/
+            relativeLayout.post(new Runnable() {
+                public void run() {
+                    relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
+                }
+            });
+            telemetry.addData("argb: ", colorSensor.argb());
+            telemetry.addData("Hue", hsvValues[0]);
+            telemetry.addData("Distance (cm)", String.format(Locale.US, "%.02f", distanceSensor.getDistance(DistanceUnit.CM)));
+        }
     }
 }
