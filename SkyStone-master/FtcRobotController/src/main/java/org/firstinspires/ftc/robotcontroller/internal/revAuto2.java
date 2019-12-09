@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "revAutoBlue", group = "9191")
-public class revAuto extends LinearOpMode {
+@Autonomous(name = "revAutoRed", group = "9191")
+public class revAuto2 extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -26,7 +26,6 @@ public class revAuto extends LinearOpMode {
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-
     }
 
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
@@ -65,25 +64,25 @@ public class revAuto extends LinearOpMode {
         backRight = hardwareMap.dcMotor.get("BR");
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
-        capStone = hardwareMap.servo.get("CS");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         foundationOne.setPosition(1);
         foundationTwo.setPosition(1);
         capStone.setPosition(1);
 
+
         waitForStart();
 
-        sideways(.5, 626);
+        sideways(-.5, 626);
         forward(.5, 3100);
         foundationOne.setPosition(0); foundationTwo.setPosition(0);
         sleep(500);
-        sideways(-.75, 2000);
+        sideways(.75, 2000);
         forward(-.5, 4500);
         foundationOne.setPosition(1); foundationTwo.setPosition(1);
-        sideways(-.5, 1000);
+        sideways(.5, 1000);
         forward(.5, 500);
-        sideways(-.5, 3000);
+        sideways(.5, 3000);
         //forward(-.5, 1000); //14 3/8 in. (example)
     }
 }
