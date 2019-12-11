@@ -70,20 +70,15 @@ public class revAuto extends LinearOpMode {
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         foundationOne.setPosition(1);
         foundationTwo.setPosition(1);
-        capStone.setPosition(1);
 
         waitForStart();
 
-        sideways(.5, 626);
-        forward(.5, 3100);
+        sideways(.5, 2500);
+        forward(.5, 2700);
         foundationOne.setPosition(0); foundationTwo.setPosition(0);
         sleep(500);
-        sideways(-.75, 2000);
-        forward(-.5, 4500);
+        forward(-.5, 3650);
         foundationOne.setPosition(1); foundationTwo.setPosition(1);
-        sideways(-.5, 1000);
-        forward(.5, 500);
-        sideways(-.5, 3000);
-        //forward(-.5, 1000); //14 3/8 in. (example)
+        sideways(-.5, 5200);
     }
 }

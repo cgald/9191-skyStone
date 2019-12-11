@@ -52,10 +52,6 @@ public class revAuto2 extends LinearOpMode {
         backRight.setPower(0);
     }
 
-    private void foundation(double pos){ //Positive power = up, Negative power = down
-        foundationOne.setPosition(pos);
-        foundationTwo.setPosition(pos);
-    }
     @Override
     public void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("FL");
@@ -64,25 +60,23 @@ public class revAuto2 extends LinearOpMode {
         backRight = hardwareMap.dcMotor.get("BR");
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
+        capStone = hardwareMap.servo.get("CS");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        foundationOne.setPosition(1);
+        foundationOne.setPosition(.8);
         foundationTwo.setPosition(1);
-        capStone.setPosition(1);
+        capStone.setPosition(.8);
 
 
         waitForStart();
 
-        sideways(-.5, 626);
-        forward(.5, 3100);
+        sideways(-.5, 1800);
+        forward(.5, 2200);
         foundationOne.setPosition(0); foundationTwo.setPosition(0);
         sleep(500);
-        sideways(.75, 2000);
-        forward(-.5, 4500);
+        forward(-.5, 3650);
         foundationOne.setPosition(1); foundationTwo.setPosition(1);
-        sideways(.5, 1000);
-        forward(.5, 500);
-        sideways(.5, 3000);
-        //forward(-.5, 1000); //14 3/8 in. (example)
+        sideways(.5, 4800);
+        telemetry.addData("CS pos: ",capStone.getPosition());
     }
 }

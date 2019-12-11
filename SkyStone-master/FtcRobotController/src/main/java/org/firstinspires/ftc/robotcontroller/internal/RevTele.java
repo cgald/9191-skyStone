@@ -79,9 +79,22 @@ public class RevTele extends OpMode {
             capStone.setPosition(capStone.getPosition() - .0025);
         } else if(gamepad1.right_bumper){
             capStone.setPosition(capStone.getPosition() + .0025);
+            //*dbug
+        } if(gamepad1.dpad_up){
+            frontRight.setPower(1);
+        } if(gamepad1.dpad_left){
+            frontLeft.setPower(1);
+        } if(gamepad1.dpad_down){
+            backLeft.setPower(1);
+        } if(gamepad1.dpad_right){
+            backRight.setPower(1);
+            //*/
         }
         telemetry.addData("Power: ", "%.2f", gamepad1.left_stick_y);
         telemetry.addData("leftFoundationPos: ", foundationOne.getPosition());
         telemetry.addData("rightFoundationPos: ", foundationTwo.getPosition());
+
+
+
     }
 }
