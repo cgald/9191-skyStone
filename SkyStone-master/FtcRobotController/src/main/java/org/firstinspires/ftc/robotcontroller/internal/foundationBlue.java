@@ -17,7 +17,7 @@ public class foundationBlue extends LinearOpMode {
     private Servo foundationTwo;
     private Servo capStone;
 
-    private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward (idk why pls no ask why)
+    private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward
         //Set wheels power to the value of power
         frontLeft.setPower(power);
         frontRight.setPower(power);
