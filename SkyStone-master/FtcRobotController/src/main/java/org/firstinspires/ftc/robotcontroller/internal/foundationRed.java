@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "revAutoBlue", group = "9191")
-public class revAuto extends LinearOpMode {
+@Autonomous(name = "revAutoRed", group = "9191")
+public class foundationRed extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -26,7 +26,6 @@ public class revAuto extends LinearOpMode {
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-
     }
 
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
@@ -53,10 +52,6 @@ public class revAuto extends LinearOpMode {
         backRight.setPower(0);
     }
 
-    private void foundation(double pos){ //Positive power = up, Negative power = down
-        foundationOne.setPosition(pos);
-        foundationTwo.setPosition(pos);
-    }
     @Override
     public void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("FL");
@@ -68,17 +63,20 @@ public class revAuto extends LinearOpMode {
         capStone = hardwareMap.servo.get("CS");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        foundationOne.setPosition(1);
+        foundationOne.setPosition(.8);
         foundationTwo.setPosition(1);
+        capStone.setPosition(.8);
+
 
         waitForStart();
 
-        sideways(.5, 2500);
-        forward(.5, 2700);
+        sideways(-.5, 1800);
+        forward(.5, 2200);
         foundationOne.setPosition(0); foundationTwo.setPosition(0);
         sleep(500);
         forward(-.5, 3650);
         foundationOne.setPosition(1); foundationTwo.setPosition(1);
-        sideways(-.5, 5200);
+        sideways(.5, 4800);
+        telemetry.addData("CS pos: ",capStone.getPosition());
     }
 }
