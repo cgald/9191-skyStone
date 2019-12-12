@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous(name = "armAuto") //Lined up on right
-public    class armAuto extends LinearOpMode {
+public class armAuto extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;

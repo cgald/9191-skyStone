@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name = "shortBlue") //Lined up on right
-public    class shortRight extends LinearOpMode {
+public class shortRight extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -26,7 +26,6 @@ public    class shortRight extends LinearOpMode {
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-
     }
 
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left

@@ -67,20 +67,21 @@ public class foundationBlue extends LinearOpMode {
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
         capStone = hardwareMap.servo.get("CS");
-        //Since the wheels are flipped on the right side, we need to permanently reverse the direction of the right motots
+        //Since the wheels are flipped on the right side, we need to permanently reverse the direction of the right motos
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Initialize servos
         foundationOne.setPosition(1);
         foundationTwo.setPosition(1);
 
         waitForStart();
 
-        sideways(.5, 2500);
-        forward(.5, 2700);
-        foundationOne.setPosition(0); foundationTwo.setPosition(0);
-        sleep(500);
-        forward(-.5, 3650);
-        foundationOne.setPosition(1); foundationTwo.setPosition(1);
+        sideways(.5, 2500); //Drive left at half power for 2.5 seconds
+        forward(.5, 2700); //Drive forward at half power for 2.7 seconds
+        foundationOne.setPosition(0); foundationTwo.setPosition(0); //Set grippers down to grab foundation
+        sleep(500); //Give grippers time to go down
+        forward(-.5, 3650); //Drive backwards at half power for 3.65 seconds
+        foundationOne.setPosition(1); foundationTwo.setPosition(1); //Set grippers up to release foundation
         sideways(-.5, 5200);
     }
 }
