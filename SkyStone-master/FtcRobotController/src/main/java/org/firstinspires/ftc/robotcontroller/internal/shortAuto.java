@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name = "shortRed") //Lined up on left
-public class shortAuto extends LinearOpMode {
+public    class shortAuto extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -59,7 +59,7 @@ public class shortAuto extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public    void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("FL");
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
