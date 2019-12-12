@@ -1,13 +1,13 @@
 package org.firstinspires.ftc.robotcontroller.internal;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "revAutoRed", group = "9191")
+@Autonomous(name = "revAutoRed", group = "9191") //Program will be called revAutoRed on the phone
 public class foundationRed extends LinearOpMode {
+    //Naming motors and servos
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -17,11 +17,13 @@ public class foundationRed extends LinearOpMode {
     private Servo capStone;
 
     private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward (idk why pls no ask why)
+        //Set wheels power to the value of power
         frontLeft.setPower(power);
         frontRight.setPower(power);
         backLeft.setPower(power);
         backRight.setPower(power);
-        sleep(runtime);
+        sleep(runtime); //Wait for runtime milliseconds
+        //Set wheels power to 0
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
@@ -29,11 +31,13 @@ public class foundationRed extends LinearOpMode {
     }
 
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
+        //Set wheels power to the value of power
         frontLeft.setPower(power);
         frontRight.setPower(-power);
         backLeft.setPower(power);
         backRight.setPower(-power);
-        sleep(runtime);
+        sleep(runtime); //Wait for runtime milliseconds
+        //Set wheels power to 0
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
@@ -41,11 +45,13 @@ public class foundationRed extends LinearOpMode {
     }
 
     private void turn(double power, int runtime) { //Positive power = right, Negative power = left
+        //Set wheels power to the value of power
         frontLeft.setPower(power);
         frontRight.setPower(-power);
         backLeft.setPower(-power);
         backRight.setPower(power);
-        sleep(runtime);
+        sleep(runtime); //Wait for runtime milliseconds
+        //Set wheels power to 0
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
@@ -54,6 +60,7 @@ public class foundationRed extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        //What to call the motors/servos on the phones
         frontLeft = hardwareMap.dcMotor.get("FL");
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
@@ -61,22 +68,22 @@ public class foundationRed extends LinearOpMode {
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
         capStone = hardwareMap.servo.get("CS");
+        //Since the wheels are flipped on the right side, we need to permanently reverse the direction of the right motors
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Set starting position of servos
         foundationOne.setPosition(.8);
         foundationTwo.setPosition(1);
         capStone.setPosition(.8);
 
 
         waitForStart();
-
-        sideways(-.5, 1800);
-        forward(.5, 2200);
-        foundationOne.setPosition(0); foundationTwo.setPosition(0);
-        sleep(500);
-        forward(-.5, 3650);
-        foundationOne.setPosition(1); foundationTwo.setPosition(1);
-        sideways(.5, 4800);
-        telemetry.addData("CS pos: ",capStone.getPosition());
+        sideways(-.5, 1800); //Drive right to line up with the foundation
+        forward(.5, 2200); //Drive backwards to foundation
+        foundationOne.setPosition(0); foundationTwo.setPosition(0); //Set servos down to grab foundation
+        sleep(500); //Wait for servos to go all the way down
+        forward(-.5, 3650); //Drive foundation back into building site
+        foundationOne.setPosition(1); foundationTwo.setPosition(1); //Set grippers up to release foundation
+        sideways(.5, 4800); //Drive left to park under bridge
     }
 }
