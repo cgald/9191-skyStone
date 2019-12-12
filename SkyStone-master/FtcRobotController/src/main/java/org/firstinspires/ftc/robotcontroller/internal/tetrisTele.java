@@ -14,8 +14,8 @@ public class tetrisTele extends OpMode {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    private DcMotor inLeft;
-    private DcMotor inRight;
+    //private DcMotor inLeft;
+    //private DcMotor inRight;
     private DcMotor armLift;
     private CRServo foundationMove;
     private Servo grabBlock;
@@ -28,8 +28,8 @@ public class tetrisTele extends OpMode {
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
         backRight = hardwareMap.dcMotor.get("BR");
-        inLeft = hardwareMap.dcMotor.get("IL");
-        inRight = hardwareMap.dcMotor.get("IR");
+        //inLeft = hardwareMap.dcMotor.get("IL");
+        //inRight = hardwareMap.dcMotor.get("IR");
         armLift = hardwareMap.dcMotor.get("AL");
         foundationMove = hardwareMap.crservo.get("FM");
         grabBlock = hardwareMap.servo.get("GB");
@@ -42,8 +42,8 @@ public class tetrisTele extends OpMode {
     @Override
     public void loop() {
         double r = Math.hypot(gamepad1.right_stick_x, gamepad1.left_stick_y);
-        double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
-        double rightX = gamepad1.right_stick_x;
+        double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
+        double rightX = gamepad1.left_stick_x;
         //if(gamepad1.left_bumper || gamepad2.left_bumper) i /= 2;
         //if(gamepad1.right_bumper || gamepad2.right_bumper) i /= 4;
         final double v1 = r * Math.cos(robotAngle) + rightX;
@@ -51,12 +51,12 @@ public class tetrisTele extends OpMode {
         final double v3 = r * Math.sin(robotAngle) + rightX;
         final double v4 = r * Math.cos(robotAngle) - rightX;
 
-        frontLeft.setPower(-v1);
-        frontRight.setPower(-v2);
+        frontLeft.setPower(v1);
+        frontRight.setPower(v2);
         backLeft.setPower(v3);
         backRight.setPower(v4);
-        inLeft.setPower(gamepad2.right_stick_y);
-        inRight.setPower(-gamepad2.right_stick_y);
+        //inLeft.setPower(gamepad2.right_stick_y);
+        //inRight.setPower(-gamepad2.right_stick_y);
         armLift.setPower(gamepad2.left_stick_y);
         if(gamepad2.a){
             grabBlock.setPosition(grabBlock.getPosition() - .01);
@@ -74,7 +74,7 @@ public class tetrisTele extends OpMode {
             foundationMove.setPower(-1);
         } else{
             foundationMove.setPower(0);
-            /*dbug
+            //*dbug
         } if(gamepad1.dpad_up){
             frontRight.setPower(1);
         } if(gamepad1.dpad_left){
@@ -83,7 +83,7 @@ public class tetrisTele extends OpMode {
             backLeft.setPower(1);
         } if(gamepad1.dpad_right){
             backRight.setPower(1);
-            */
+            //*/
         }
     }
 }

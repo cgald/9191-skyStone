@@ -58,6 +58,7 @@ public class RevTele extends OpMode {
         backLeft.setPower(v3);
         backRight.setPower(v4);
         armLift.setPower(-gamepad2.left_stick_y * .65); //arm input
+
         if(gamepad2.a){
             gripperLeft.setPower(1);
             gripperRight.setPower(1);
