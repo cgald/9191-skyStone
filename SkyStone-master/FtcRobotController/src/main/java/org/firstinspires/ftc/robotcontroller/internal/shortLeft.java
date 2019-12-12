@@ -59,7 +59,7 @@ public class shortLeft extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public    void runOpMode() throws InterruptedException {
         frontLeft = hardwareMap.dcMotor.get("FL");
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
