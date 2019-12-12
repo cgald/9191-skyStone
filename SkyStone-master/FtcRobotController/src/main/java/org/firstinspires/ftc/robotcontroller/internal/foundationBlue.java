@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name = "revAutoBlue", group = "9191")
-public class revAuto extends LinearOpMode {
+public class foundationBlue extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -59,6 +59,7 @@ public class revAuto extends LinearOpMode {
     }
     @Override
     public void runOpMode() throws InterruptedException {
+        //What to call the motors/servos on the phones
         frontLeft = hardwareMap.dcMotor.get("FL");
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
@@ -66,6 +67,7 @@ public class revAuto extends LinearOpMode {
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
         capStone = hardwareMap.servo.get("CS");
+        //Since the wheels are flipped on the right side, we need to permanently reverse the direction of the right motots
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         foundationOne.setPosition(1);

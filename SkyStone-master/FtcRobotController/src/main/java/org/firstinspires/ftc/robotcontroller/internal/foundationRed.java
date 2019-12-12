@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name = "revAutoRed", group = "9191")
-public class revAuto2 extends LinearOpMode {
+public class foundationRed extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
