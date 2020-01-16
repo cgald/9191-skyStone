@@ -29,7 +29,7 @@ public class RevTele extends OpMode {
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
         backRight = hardwareMap.dcMotor.get("BR");
-       armLift = hardwareMap.dcMotor.get("AL");
+        armLift = hardwareMap.dcMotor.get("AL");
         gripperLeft = hardwareMap.crservo.get("GF"); //Front and Back Variable
         gripperRight = hardwareMap.crservo.get("GB");
         foundationOne = hardwareMap.servo.get("F1");
