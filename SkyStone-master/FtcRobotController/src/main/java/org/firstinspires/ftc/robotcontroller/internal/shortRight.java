@@ -15,7 +15,7 @@ public class shortRight extends LinearOpMode {
     private Servo foundationOne;
     private Servo foundationTwo;
     private Servo capStone;
-    
+
     private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward
         //Set wheels power to the value of power
         frontLeft.setPower(power);
