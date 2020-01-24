@@ -86,5 +86,6 @@ public class foundationBlue extends LinearOpMode {
         forward(-.5, 3650); //Drive foundation back into building site
         foundationOne.setPosition(1); foundationTwo.setPosition(1); //Set grippers up to release foundation
         sideways(-.5, 5200); //Drive right in order to park under bridge
+        //Total runtime: 14.55 sec
     }
 }

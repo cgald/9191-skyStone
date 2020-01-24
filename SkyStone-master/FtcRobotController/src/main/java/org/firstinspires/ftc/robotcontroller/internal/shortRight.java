@@ -15,7 +15,7 @@ public class shortRight extends LinearOpMode {
     private Servo foundationOne;
     private Servo foundationTwo;
     private Servo capStone;
-
+ //TODO: Go to config and remove colorSensor from Accessory hub IC2 Bus 0
     private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward (idk why pls no ask why)
         frontLeft.setPower(power);
         frontRight.setPower(power);

@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.robotcontroller.internal;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-
-@TeleOp(name = "RevTele", group = "9191")
-//All directions "left/right" are facing from the back
-//All of these are setting the motor names to their respective variable types
-public class RevTele extends OpMode {
+@TeleOp(name = "linearSlider", group = "9191")
+@Disabled
+public class linearSliderRev extends OpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -20,10 +20,11 @@ public class RevTele extends OpMode {
     private Servo foundationOne; //Left from back
     private Servo foundationTwo; //Right from back
     private Servo capStone;
-
+    private DcMotor linearSlider;
+    private Servo grabBlock;
+    private CRServo rotateBlock;
     @Override
     public void init() {
-        //Front Left and Right Wheel Motors, and Back Left and Right Wheel Motors Variable Setting
         frontLeft = hardwareMap.dcMotor.get("FL");
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
@@ -34,6 +35,9 @@ public class RevTele extends OpMode {
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
         capStone = hardwareMap.servo.get("CS");
+        linearSlider = hardwareMap.dcMotor.get("LS");
+        grabBlock = hardwareMap.servo.get("PB");
+        rotateBlock = hardwareMap.crservo.get("RB");
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         foundationOne.setPosition(1);
@@ -45,8 +49,6 @@ public class RevTele extends OpMode {
         double r = Math.hypot(gamepad1.right_stick_x, gamepad1.left_stick_y);
         double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
         double rightX = gamepad1.left_stick_x;
-        //if(gamepad1.left_bumper || gamepad2.left_bumper) i /= 2;
-        //if(gamepad1.right_bumper || gamepad2.right_bumper) i /= 4;
         final double v1 = r * Math.cos(robotAngle) + rightX;
         final double v2 = r * Math.sin(robotAngle) - rightX;
         final double v3 = r * Math.sin(robotAngle) + rightX;
@@ -56,7 +58,7 @@ public class RevTele extends OpMode {
         frontRight.setPower(v2);
         backLeft.setPower(v3);
         backRight.setPower(v4);
-        armLift.setPower(-gamepad2.left_stick_y * .65); //arm input
+        //armLift.setPower(-gamepad2.left_stick_y * .65); //arm input
 
         if(gamepad2.a){
             gripperLeft.setPower(1);
@@ -75,13 +77,18 @@ public class RevTele extends OpMode {
             foundationTwo.setPosition(foundationTwo.getPosition() + .01);
         } else if(gamepad1.a){
             foundationTwo.setPosition(foundationTwo.getPosition() - .01);
-        } if(gamepad1.left_bumper){ //TODO: Reverse direction for capstone
-            capStone.setPosition(capStone.getPosition() - .01);
+        } if(gamepad1.left_bumper){
+            capStone.setPosition(capStone.getPosition() - .0025);
         } else if(gamepad1.right_bumper){
-            capStone.setPosition(capStone.getPosition() + .01);
-        }
-        telemetry.addData("Power: ", "%.2f", gamepad1.left_stick_y);
-        telemetry.addData("leftFoundationPos: ", foundationOne.getPosition());
-        telemetry.addData("rightFoundationPos: ", foundationTwo.getPosition());
+            capStone.setPosition(capStone.getPosition() + .0025);
+        } if(gamepad2.left_stick_y !=0){
+            linearSlider.setPower(gamepad2.left_stick_y) ;
+        } else{
+            linearSlider.setPower(0);
+        } if(gamepad2.left_bumper){
+            grabBlock.setPosition(grabBlock.getPosition() - .01);
+        } else if(gamepad2.right_bumper) {
+            grabBlock.setPosition(grabBlock.getPosition() + .01);
+        } rotateBlock.setPower(gamepad2.right_trigger - gamepad2.left_trigger);
     }
 }

@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.robotcontroller.internal;
-import android.app.Activity;
+/*import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
 
@@ -80,7 +80,7 @@ public class revAutoColor extends LinearOpMode {
         forward(-1, 1000);
 
         sideways(-1, 1000);
-*/
+
             relativeLayout.post(new Runnable() {
                 public void run() {
                     relativeLayout.setBackgroundColor(Color.HSVToColor(0xff, values));
@@ -91,4 +91,4 @@ public class revAutoColor extends LinearOpMode {
             telemetry.addData("Distance (cm)", String.format(Locale.US, "%.02f", distanceSensor.getDistance(DistanceUnit.CM)));
         }
     }
-}
+}*/

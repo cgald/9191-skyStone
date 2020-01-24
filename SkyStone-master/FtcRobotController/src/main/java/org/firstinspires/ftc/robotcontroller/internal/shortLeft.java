@@ -75,5 +75,6 @@ public class shortLeft extends LinearOpMode {
 
         forward(.5, 1375);
         sideways(-.5, 2500);
+        forward(.5, 1000);
     }
 }
