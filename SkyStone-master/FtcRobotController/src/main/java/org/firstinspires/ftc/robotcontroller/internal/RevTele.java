@@ -75,10 +75,21 @@ public class RevTele extends OpMode {
             foundationTwo.setPosition(foundationTwo.getPosition() + .01);
         } else if(gamepad1.a){
             foundationTwo.setPosition(foundationTwo.getPosition() - .01);
-        } if(gamepad1.left_bumper){ //TODO: Reverse direction for capstone
+        } if(gamepad1.left_bumper){
             capStone.setPosition(capStone.getPosition() - .01);
         } else if(gamepad1.right_bumper){
             capStone.setPosition(capStone.getPosition() + .01);
+        }
+        if(gamepad2.dpad_up){
+            frontLeft.setPower(.5);
+            frontRight.setPower(.5);
+            backLeft.setPower(.5);
+            backRight.setPower(.5);
+        } if(gamepad2.dpad_down){
+            frontLeft.setPower(-.5);
+            frontRight.setPower(-.5);
+            backLeft.setPower(-.5);
+            backRight.setPower(-.5);
         }
         telemetry.addData("Power: ", "%.2f", gamepad1.left_stick_y);
         telemetry.addData("leftFoundationPos: ", foundationOne.getPosition());
