@@ -81,15 +81,15 @@ public class RevTele extends OpMode {
             capStone.setPosition(capStone.getPosition() + .01);
         }
         if(gamepad2.dpad_up){
-            frontLeft.setPower(.5);
-            frontRight.setPower(.5);
-            backLeft.setPower(.5);
-            backRight.setPower(.5);
+            frontLeft.setPower(1);
+            frontRight.setPower(1);
+            backLeft.setPower(1);
+            backRight.setPower(1);
         } if(gamepad2.dpad_down){
-            frontLeft.setPower(-.5);
-            frontRight.setPower(-.5);
-            backLeft.setPower(-.5);
-            backRight.setPower(-.5);
+            frontLeft.setPower(-1);
+            frontRight.setPower(-1);
+            backLeft.setPower(-1);
+            backRight.setPower(-1);
         }
         telemetry.addData("Power: ", "%.2f", gamepad1.left_stick_y);
         telemetry.addData("leftFoundationPos: ", foundationOne.getPosition());

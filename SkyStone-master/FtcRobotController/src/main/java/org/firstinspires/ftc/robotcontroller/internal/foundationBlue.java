@@ -79,8 +79,8 @@ public class foundationBlue extends LinearOpMode {
 
         waitForStart();
 
-        sideways(.5, 2500); //Drive left to line up with the foundation
-        forward(.5, 2700); //Drive backwards to foundation
+        sideways(.5, 2300); //Drive left to line up with the foundation
+        forward(.5, 2400); //Drive backwards to foundation
         foundationOne.setPosition(0); foundationTwo.setPosition(0); //Set grippers down to grab foundation
         sleep(500); //Wait for servos to go all the way down
         forward(-.5, 3650); //Drive foundation back into building site
