@@ -4,13 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@TeleOp(name = "mixTele", group = "9191")
+@TeleOp(name = "vectorTele", group = "9191")
 public class vectorTele extends OpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
-    /*private DcMotor linearLift;
+    private DcMotor linearLift;
     private DcMotor intakeLeft;
     private DcMotor intakeRight;
     /*private CRServo gripperLeft;
@@ -25,7 +25,7 @@ public class vectorTele extends OpMode {
         frontRight = hardwareMap.dcMotor.get("FR");
         backLeft = hardwareMap.dcMotor.get("BL");
         backRight = hardwareMap.dcMotor.get("BR");
-        /*linearLift = hardwareMap.dcMotor.get("LL");
+        linearLift = hardwareMap.dcMotor.get("LL");
         intakeLeft = hardwareMap.dcMotor.get("IL");
         intakeRight = hardwareMap.dcMotor.get("IR");
         /*gripperLeft = hardwareMap.crservo.get("GF");
@@ -39,27 +39,29 @@ public class vectorTele extends OpMode {
     @Override
     public void loop() {
         double mag = Math.abs(gamepad1.left_stick_x) + Math.abs(gamepad1.left_stick_y) + Math.abs(gamepad1.right_stick_x);
-        final double v1 = (-gamepad1.left_stick_x + gamepad1.left_stick_y - gamepad1.right_stick_x) / mag ;
-        final double v2 = (gamepad1.left_stick_x + gamepad1.left_stick_y + gamepad1.right_stick_x) / mag ;
-        final double v3 = (gamepad1.left_stick_x + gamepad1.left_stick_y - gamepad1.right_stick_x) / mag ;
-        final double v4 = (-gamepad1.left_stick_x + gamepad1.left_stick_y + gamepad1.right_stick_x) / mag ;
+        double throtle = (1 - gamepad1.left_trigger);
+        final double v1 = (gamepad1.left_stick_x + gamepad1.left_stick_y + gamepad1.right_stick_x) / mag ;
+        final double v2 = (-gamepad1.left_stick_x + gamepad1.left_stick_y - gamepad1.right_stick_x) / mag ;
+        final double v3 = (-gamepad1.left_stick_x  - gamepad1.left_stick_y + gamepad1.right_stick_x) / mag ;
+        final double v4 = (gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x) / mag ;
+        //make a throttle
+        //add 6 speed transmission
+
+        frontLeft.setPower(v1 * throtle);
+        frontRight.setPower(-v2 * throtle);
+        backLeft.setPower(v3 * throtle);
+        backRight.setPower(-v4 * throtle);
 
 
 
-        frontLeft.setPower(v1);
-        frontRight.setPower(-v2);
-        backLeft.setPower(v3);
-        backRight.setPower(-v4);
 
 
 
+        intakeRight.setPower(gamepad2.right_stick_y * 2);
+        intakeLeft.setPower(-gamepad2.right_stick_y * 2);
 
-
-
-        /*intakeRight.setPower(gamepad2.right_stick_y);
-        intakeLeft.setPower(-gamepad2.right_stick_y);
-        linearLift.setPower(gamepad2.right_stick_y * .65);
-        pushBlock.setPower(gamepad2.right_stick_x * .65);
+        linearLift.setPower(gamepad2.left_stick_y);
+/*
         if(gamepad2.a){
             gripperLeft.setPower(1);
             gripperRight.setPower(1);
