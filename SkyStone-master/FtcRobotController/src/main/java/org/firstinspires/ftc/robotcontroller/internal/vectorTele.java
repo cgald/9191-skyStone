@@ -40,18 +40,19 @@ public class vectorTele extends OpMode {
     public void loop() {
         double mag = Math.abs(gamepad1.left_stick_x) + Math.abs(gamepad1.left_stick_y) + Math.abs(gamepad1.right_stick_x);
         double throtle = (1 - gamepad1.left_trigger);
-        final double v1 = (gamepad1.left_stick_x + gamepad1.left_stick_y + gamepad1.right_stick_x) / mag ;
-        final double v2 = (-gamepad1.left_stick_x + gamepad1.left_stick_y - gamepad1.right_stick_x) / mag ;
-        final double v3 = (-gamepad1.left_stick_x  - gamepad1.left_stick_y + gamepad1.right_stick_x) / mag ;
-        final double v4 = (gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x) / mag ;
+        final double v1 = (gamepad1.left_stick_x - gamepad1.left_stick_y + gamepad1.right_stick_x) / mag ;
+        final double v2 = (-gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x) / mag;
+        final double v3 = (-gamepad1.left_stick_x  - gamepad1.left_stick_y + gamepad1.right_stick_x) / mag;
+        final double v4 = (gamepad1.left_stick_x - gamepad1.left_stick_y - gamepad1.right_stick_x) / mag;
         //make a throttle
         //add 6 speed transmission
-
+        //todo change battery holder
         frontLeft.setPower(v1 * throtle);
         frontRight.setPower(-v2 * throtle);
         backLeft.setPower(v3 * throtle);
         backRight.setPower(-v4 * throtle);
-
+        //broken settup 0 = FL, 1 = FR, 2 = BR, 3 BL
+        //robot settup 0 = FR, FL = 1, 2 = BR, 3 = BL
 
 
 
