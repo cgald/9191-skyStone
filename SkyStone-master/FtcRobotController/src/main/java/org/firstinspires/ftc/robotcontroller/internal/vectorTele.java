@@ -85,8 +85,8 @@ public class vectorTele extends OpMode {
         intakeRight.setPower(gamepad2.right_stick_y * 2);
         intakeLeft.setPower(-gamepad2.right_stick_y * 2);
 
-        linearLift.setPower(-gamepad2.left_stick_y * .6);
-        counterServo.setPower(gamepad2.left_stick_y * .2);
+        linearLift.setPower(-gamepad2.left_stick_y * .5);
+        counterServo.setPower(gamepad2.left_stick_y * .15);
 
 
         if(gamepad2.a){
