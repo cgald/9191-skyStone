@@ -3,6 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "mixTele", group = "9191")
 public class mixedTele extends OpMode {
@@ -16,10 +17,10 @@ public class mixedTele extends OpMode {
     private CRServo counterServo;
     private CRServo gripperLeft;
     private CRServo gripperRight;
-    /*private Servo foundationOne;
+    private CRServo gripperChange;
+    private Servo foundationOne;
     private Servo foundationTwo;
     private Servo capStone;
-    private CRServo pushBlock;*/
     @Override
     public void init() {
         frontLeft = hardwareMap.dcMotor.get("FL");
@@ -32,30 +33,30 @@ public class mixedTele extends OpMode {
         counterServo = hardwareMap.crservo.get("CL");
         gripperLeft = hardwareMap.crservo.get("GF");
         gripperRight = hardwareMap.crservo.get("GB");
-        /*foundationOne = hardwareMap.servo.get("F1");
+        foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
-        pushBlock = hardwareMap.crservo.get("PB");
-        capStone = hardwareMap.servo.get("CS");*/
+        capStone = hardwareMap.servo.get("CS");
+        gripperChange = hardwareMap.crservo.get("GC");
     }
 
     @Override
     public void loop() {
-        if (gamepad1.left_stick_y != 0) { //This moves the robot forward and back
+        if (gamepad1.left_stick_y != 0){ //This moves the robot forward and back
             frontLeft.setPower(-gamepad1.left_stick_y);
             frontRight.setPower(gamepad1.left_stick_y);
             backLeft.setPower(-gamepad1.left_stick_y);
             backRight.setPower(gamepad1.left_stick_y);
-        } else if (gamepad1.left_stick_x != 0) { //This moves the robot left and right
+        } else if (gamepad1.left_stick_x != 0){ //This moves the robot left and right
             frontLeft.setPower(gamepad1.left_stick_x);
             frontRight.setPower(gamepad1.left_stick_x);
             backLeft.setPower(-gamepad1.left_stick_x);
             backRight.setPower(-gamepad1.left_stick_x);
-        } else if (gamepad1.right_stick_x != 0) { //This rotates the robot left and right
+        } else if (gamepad1.right_stick_x != 0){ //This rotates the robot left and right
             frontLeft.setPower(gamepad1.right_stick_x * .85);
             frontRight.setPower(gamepad1.right_stick_x * .85);
             backLeft.setPower(gamepad1.right_stick_x * .85);
             backRight.setPower(gamepad1.right_stick_x * .85);
-        } else {
+        } else{
             frontLeft.setPower(0);
             frontRight.setPower(0);
             backLeft.setPower(0);
@@ -68,6 +69,13 @@ public class mixedTele extends OpMode {
         counterServo.setPower(gamepad2.left_trigger);
         linearLift.setPower(gamepad2.left_trigger * -.4);
 
+        if(gamepad2.x){
+            gripperChange.setPower(1);
+        } else if(gamepad2.b){
+            gripperChange.setPower(-1);
+        } else {
+            gripperChange.setPower(0);
+        }
         if(gamepad2.a){
             gripperLeft.setPower(1);
             gripperRight.setPower(-1);
@@ -77,10 +85,7 @@ public class mixedTele extends OpMode {
         } else {
             gripperLeft.setPower(0);
             gripperRight.setPower(0);
-        }
-       /* linearLift.setPower(gamepad2.right_stick_y * .65);
-        pushBlock.setPower(gamepad2.right_stick_x * .65);
-       if(gamepad1.y){
+        } if(gamepad1.y){
             foundationTwo.setPosition(foundationTwo.getPosition() + .01);
             foundationOne.setPosition(foundationOne.getPosition() + .01);
         } else if(gamepad1.a) {
@@ -91,6 +96,5 @@ public class mixedTele extends OpMode {
         } else if(gamepad1.right_bumper){
             capStone.setPosition(capStone.getPosition() + .01);
         }
-        */
     }
 }

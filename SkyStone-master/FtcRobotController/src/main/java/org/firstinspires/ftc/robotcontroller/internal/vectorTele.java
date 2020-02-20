@@ -22,6 +22,7 @@ public class vectorTele extends OpMode {
     private Servo capStone;
     private CRServo pushBlock;*/
     @Override
+    //TODO: Intake on GP1; Fix foundation servos; Slow down rotator
     public void init() {
         frontLeft = hardwareMap.dcMotor.get("FL");
         frontRight = hardwareMap.dcMotor.get("FR");
@@ -61,35 +62,22 @@ public class vectorTele extends OpMode {
 */
 
 
-        double mag = Math.abs(gamepad1.left_stick_x) + Math.abs(gamepad1.left_stick_y);
         double throtle = (1 + gamepad1.left_trigger - gamepad1.right_trigger);
         final double v1 = (gamepad1.left_stick_x - gamepad1.left_stick_y ) / 1.69 + gamepad1.right_stick_x ;
         final double v2 = (-gamepad1.left_stick_x - gamepad1.left_stick_y ) / 1.69 - gamepad1.right_stick_x;
         final double v3 = (-gamepad1.left_stick_x  - gamepad1.left_stick_y ) / 1.69 + gamepad1.right_stick_x;
         final double v4 = (gamepad1.left_stick_x - gamepad1.left_stick_y ) / 1.69 - gamepad1.right_stick_x;
-        //todo add 6 speed transmission
-        //todo change battery holder
         frontLeft.setPower(v1 * throtle);
         frontRight.setPower(-v2 * throtle);
         backLeft.setPower(v3 * throtle);
         backRight.setPower(-v4 * throtle);
-        //broken settup 0 = FL, 1 = FR, 2 = BR, 3 BL
-        //robot settup 0 = FR, FL = 1, 2 = BR, 3 = BL
-        telemetry.addData("Mag", mag);
-        telemetry.update();
-
-
-
         intakeRight.setPower(gamepad2.right_stick_y * 2);
         intakeLeft.setPower(-gamepad2.right_stick_y * 2);
 
-<<<<<<< HEAD
         linearLift.setPower(-gamepad2.left_stick_y * .5);
         counterServo.setPower(gamepad2.left_stick_y * .15);
-=======
         linearLift.setPower(-gamepad2.left_stick_y * .6);
         counterServo.setPower(gamepad2.left_stick_y * .2);
->>>>>>> 5042c4bf566e1b0577fe4b28c9f9f8ede63713ee
 
 
         if(gamepad2.a){
@@ -119,6 +107,6 @@ public class vectorTele extends OpMode {
             capStone.setPosition(capStone.getPosition() - .01);
         } else if(gamepad1.right_bumper){
             capStone.setPosition(capStone.getPosition() + .01);
-        }
-    */}
+        }*/
+    }
 }
