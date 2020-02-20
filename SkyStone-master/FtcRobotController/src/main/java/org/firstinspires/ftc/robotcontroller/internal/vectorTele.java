@@ -3,6 +3,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "vectorTele", group = "9191")
 public class vectorTele extends OpMode {
@@ -17,10 +18,10 @@ public class vectorTele extends OpMode {
     private CRServo gripperRight;
     private CRServo gripperChange;
     private CRServo counterServo;
-    /*private Servo foundationOne;
+    private Servo foundationOne;
     private Servo foundationTwo;
     private Servo capStone;
-    private CRServo pushBlock;*/
+    //private CRServo pushBlock;*/
     @Override
     public void init() {
         frontLeft = hardwareMap.dcMotor.get("FL");
@@ -33,11 +34,11 @@ public class vectorTele extends OpMode {
         gripperLeft = hardwareMap.crservo.get("GL");
         gripperRight = hardwareMap.crservo.get("GR");
         gripperChange = hardwareMap.crservo.get("GC");
-        counterServo = hardwareMap.crservo.get("CS");
-        /*foundationOne = hardwareMap.servo.get("F1");
+        counterServo = hardwareMap.crservo.get("CL");
+        foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
-        pushBlock = hardwareMap.crservo.get("PB");
-        capStone = hardwareMap.servo.get("CS");*/
+        //pushBlock = hardwareMap.crservo.get("PB");
+        capStone = hardwareMap.servo.get("CS");
     }
 
     @Override
@@ -83,14 +84,11 @@ public class vectorTele extends OpMode {
         intakeRight.setPower(gamepad2.right_stick_y * 2);
         intakeLeft.setPower(-gamepad2.right_stick_y * 2);
 
-<<<<<<< HEAD
-        linearLift.setPower(-gamepad2.left_stick_y * .5);
-        counterServo.setPower(gamepad2.left_stick_y * .15);
-=======
-        linearLift.setPower(-gamepad2.left_stick_y * .6);
-        //TODO: Set to ifs, with an else for setpow 0
-        counterServo.setPower(gamepad2.left_stick_y * .2);
->>>>>>> 5042c4bf566e1b0577fe4b28c9f9f8ede63713ee
+
+        linearLift.setPower(gamepad2.right_trigger);
+        counterServo.setPower(gamepad2.right_trigger * -.2);
+        counterServo.setPower(gamepad2.left_trigger);
+        linearLift.setPower(gamepad2.left_trigger * -.14);
 
 
         if(gamepad2.a){
@@ -110,7 +108,7 @@ public class vectorTele extends OpMode {
         } else{
             gripperChange.setPower(0);
 
-        } /*if(gamepad1.y){
+        } if(gamepad1.y){
             foundationTwo.setPosition(foundationTwo.getPosition() + .01);
             foundationOne.setPosition(foundationOne.getPosition() + .01);
         } else if(gamepad1.a) {
@@ -121,5 +119,5 @@ public class vectorTele extends OpMode {
         } else if(gamepad1.right_bumper){
             capStone.setPosition(capStone.getPosition() + .01);
         }
-    */}
+    }
 }
