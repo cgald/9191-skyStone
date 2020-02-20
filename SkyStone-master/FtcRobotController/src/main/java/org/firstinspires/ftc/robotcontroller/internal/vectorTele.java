@@ -84,7 +84,6 @@ public class vectorTele extends OpMode {
         intakeLeft.setPower(-gamepad2.right_stick_y * 2);
 
         linearLift.setPower(-gamepad2.left_stick_y * .6);
-        //TODO: Set to ifs, with an else for setpow 0
         counterServo.setPower(gamepad2.left_stick_y * .2);
 
 
