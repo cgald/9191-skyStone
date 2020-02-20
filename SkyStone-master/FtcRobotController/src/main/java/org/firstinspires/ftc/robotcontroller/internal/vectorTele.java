@@ -3,8 +3,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "vectorTele", group = "9191")
 public class vectorTele extends OpMode {
@@ -85,8 +83,14 @@ public class vectorTele extends OpMode {
         intakeRight.setPower(gamepad2.right_stick_y * 2);
         intakeLeft.setPower(-gamepad2.right_stick_y * 2);
 
+<<<<<<< HEAD
         linearLift.setPower(-gamepad2.left_stick_y * .5);
         counterServo.setPower(gamepad2.left_stick_y * .15);
+=======
+        linearLift.setPower(-gamepad2.left_stick_y * .6);
+        //TODO: Set to ifs, with an else for setpow 0
+        counterServo.setPower(gamepad2.left_stick_y * .2);
+>>>>>>> 5042c4bf566e1b0577fe4b28c9f9f8ede63713ee
 
 
         if(gamepad2.a){
