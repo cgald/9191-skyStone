@@ -31,8 +31,8 @@ public class vectorTele extends OpMode {
         linearLift = hardwareMap.dcMotor.get("LL");
         intakeLeft = hardwareMap.dcMotor.get("IL");
         intakeRight = hardwareMap.dcMotor.get("IR");
-        gripperLeft = hardwareMap.crservo.get("GL");
-        gripperRight = hardwareMap.crservo.get("GR");
+        gripperLeft = hardwareMap.crservo.get("GF");
+        gripperRight = hardwareMap.crservo.get("GB");
         gripperChange = hardwareMap.crservo.get("GC");
         counterServo = hardwareMap.crservo.get("CL");
         foundationOne = hardwareMap.servo.get("F1");
