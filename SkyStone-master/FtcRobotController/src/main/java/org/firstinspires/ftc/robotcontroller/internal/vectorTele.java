@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.robotcontroller.internal;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "vectorTele", group = "9191")
 public class vectorTele extends OpMode {
@@ -17,10 +19,9 @@ public class vectorTele extends OpMode {
     private CRServo gripperRight;
     private CRServo gripperChange;
     private CRServo counterServo;
-    /*private Servo foundationOne;
+    private Servo foundationOne;
     private Servo foundationTwo;
     private Servo capStone;
-    private CRServo pushBlock;*/
     @Override
     //TODO: Intake on GP1; Fix foundation servos; Slow down rotator
     public void init() {
@@ -35,10 +36,9 @@ public class vectorTele extends OpMode {
         gripperRight = hardwareMap.crservo.get("GR");
         gripperChange = hardwareMap.crservo.get("GC");
         counterServo = hardwareMap.crservo.get("CS");
-        /*foundationOne = hardwareMap.servo.get("F1");
+        foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
-        pushBlock = hardwareMap.crservo.get("PB");
-        capStone = hardwareMap.servo.get("CS");*/
+        capStone = hardwareMap.servo.get("CS");
     }
 
     @Override
@@ -97,16 +97,17 @@ public class vectorTele extends OpMode {
         } else{
             gripperChange.setPower(0);
 
-        } /*if(gamepad1.y){
-            foundationTwo.setPosition(foundationTwo.getPosition() + .01);
-            foundationOne.setPosition(foundationOne.getPosition() + .01);
-        } else if(gamepad1.a) {
+        }if(gamepad1.y){
             foundationOne.setPosition(foundationOne.getPosition() - .01);
+            foundationTwo.setPosition(foundationTwo.getPosition() + .01);
+        } else if(gamepad1.a) {
+            foundationOne.setPosition(foundationOne.getPosition() + .01);
             foundationTwo.setPosition(foundationTwo.getPosition() - .01);
         } if(gamepad1.left_bumper){
             capStone.setPosition(capStone.getPosition() - .01);
         } else if(gamepad1.right_bumper){
             capStone.setPosition(capStone.getPosition() + .01);
-        }*/
+        }
+        telemetry.addData("CS Pos :: ", capStone.getPosition());
     }
 }

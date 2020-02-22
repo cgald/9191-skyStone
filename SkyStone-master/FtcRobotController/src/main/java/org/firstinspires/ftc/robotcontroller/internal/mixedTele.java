@@ -86,15 +86,17 @@ public class mixedTele extends OpMode {
             gripperLeft.setPower(0);
             gripperRight.setPower(0);
         } if(gamepad1.y){
-            foundationTwo.setPosition(foundationTwo.getPosition() + .01);
-            foundationOne.setPosition(foundationOne.getPosition() + .01);
-        } else if(gamepad1.a) {
             foundationOne.setPosition(foundationOne.getPosition() - .01);
+            foundationTwo.setPosition(foundationTwo.getPosition() + .01);
+        } else if(gamepad1.a) {
+            foundationOne.setPosition(foundationOne.getPosition() + .01);
             foundationTwo.setPosition(foundationTwo.getPosition() - .01);
         } if(gamepad1.left_bumper){
             capStone.setPosition(capStone.getPosition() - .01);
         } else if(gamepad1.right_bumper){
             capStone.setPosition(capStone.getPosition() + .01);
         }
+        telemetry.addData("CS Pos :: ", capStone.getPosition());
+        telemetry.update();
     }
 }
