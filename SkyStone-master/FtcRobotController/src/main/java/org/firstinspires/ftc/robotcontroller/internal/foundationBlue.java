@@ -3,7 +3,6 @@ package org.firstinspires.ftc.robotcontroller.internal;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name = "revAutoBlue", group = "9191") //Program will be called revAutoBlue on the phone
@@ -19,9 +18,9 @@ public class foundationBlue extends LinearOpMode {
 
     private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward
         //Set wheels power to the value of power
-        frontLeft.setPower(power);
+        frontLeft.setPower(-power);
         frontRight.setPower(power);
-        backLeft.setPower(power);
+        backLeft.setPower(-power);
         backRight.setPower(power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -35,8 +34,8 @@ public class foundationBlue extends LinearOpMode {
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
         //Set wheels power to the value of power
         frontLeft.setPower(power);
-        frontRight.setPower(-power);
-        backLeft.setPower(power);
+        frontRight.setPower(power);
+        backLeft.setPower(-power);
         backRight.setPower(-power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -49,8 +48,8 @@ public class foundationBlue extends LinearOpMode {
     private void turn(double power, int runtime) { //Positive power = right, Negative power = left
         //Set wheels power to the value of power
         frontLeft.setPower(power);
-        frontRight.setPower(-power);
-        backLeft.setPower(-power);
+        frontRight.setPower(power);
+        backLeft.setPower(power);
         backRight.setPower(power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -70,25 +69,8 @@ public class foundationBlue extends LinearOpMode {
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
         capStone = hardwareMap.servo.get("CS");
-        //Since the wheels are flipped on the right side, we need to permanently reverse the direction of the right motors
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        //Initialize servos to a set position
-        foundationOne.setPosition(1);
-        foundationTwo.setPosition(1);
 
         waitForStart();
-
-       /* sideways(.5, 2800); //Drive left to line up with the foundation
-        forward(.5, 2700); //Drive backwards to foundation
-        foundationOne.setPosition(0); foundationTwo.setPosition(0); //Set grippers down to grab foundation
-        sleep(500); //Wait for servos to go all the way down
-        forward(-.5, 3650); //Drive foundation back into building site
-        turn(-.5, 1000); //Turn to put foundation in
-        foundationOne.setPosition(1); foundationTwo.setPosition(1); //Set grippers up to release foundation
-        turn(.5, 100);
-        sideways(-.5, 5000); //Drive right in order to park under bridge
-        //Total runtime: 16.15 sec*/
         sideways(.5, 2500); //Drive left to line up with the foundation
         forward(.5, 2700); //Drive backwards to foundation
         foundationOne.setPosition(0); foundationTwo.setPosition(0); //Set grippers down to grab foundation
