@@ -18,9 +18,9 @@ public class shortLeft extends LinearOpMode {
 
     private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward
         //Set wheels power to the value of power
-        frontLeft.setPower(power);
+        frontLeft.setPower(-power);
         frontRight.setPower(power);
-        backLeft.setPower(power);
+        backLeft.setPower(-power);
         backRight.setPower(power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -33,8 +33,8 @@ public class shortLeft extends LinearOpMode {
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
         //Set wheels power to the value of power
         frontLeft.setPower(power);
-        frontRight.setPower(-power);
-        backLeft.setPower(power);
+        frontRight.setPower(power);
+        backLeft.setPower(-power);
         backRight.setPower(-power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -68,17 +68,14 @@ public class shortLeft extends LinearOpMode {
         foundationTwo = hardwareMap.servo.get("F2"); //Hardware mapping Servo for foundation hook (right)
         capStone = hardwareMap.servo.get("CS"); //Hardware mapping Servo for Capstone release
         //Since the wheels are flipped on the right side, we need to permanently reverse the direction of the right motors
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        capStone.setPosition(1);
+        //capStone.setPosition(1);
+
+        foundationOne.setPosition(1);
+        foundationTwo.setPosition(0);
 
         waitForStart();
 
         forward(.5, 1375);
         sideways(-.5, 2500);
-        forward(.5, 1000);
-        waitForStart(); //Starts when button on phone pushed
-        forward(.5, 1375); //Drive forward at half power for 1.375 seconds
-        sideways(-.5, 2500); //Drive sideways (left) at half power for 2.5 seconds
     }
 }

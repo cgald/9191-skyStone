@@ -18,9 +18,9 @@ public class shortRight extends LinearOpMode {
 
     private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward
         //Set wheels power to the value of power
-        frontLeft.setPower(power);
+        frontLeft.setPower(-power);
         frontRight.setPower(power);
-        backLeft.setPower(power);
+        backLeft.setPower(-power);
         backRight.setPower(power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -33,8 +33,8 @@ public class shortRight extends LinearOpMode {
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
         //Set wheels power to the value of power
         frontLeft.setPower(power);
-        frontRight.setPower(-power);
-        backLeft.setPower(power);
+        frontRight.setPower(power);
+        backLeft.setPower(-power);
         backRight.setPower(-power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -68,9 +68,10 @@ public class shortRight extends LinearOpMode {
         foundationTwo = hardwareMap.servo.get("F2"); //Hardware mapping Servo for foundation hook (right)
         capStone = hardwareMap.servo.get("CS"); //Hardware mapping Servo for Capstone release
         //Since the wheels are flipped on the right side, we need to permanently reverse the direction of the right motors
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        capStone.setPosition(1);
+        //capStone.setPosition(1);
+
+        foundationOne.setPosition(1);
+        foundationTwo.setPosition(0);
 
 
         waitForStart(); //Starts when button on phone pushed

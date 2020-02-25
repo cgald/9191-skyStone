@@ -18,9 +18,9 @@ public class foundationRed extends LinearOpMode {
 
     private void forward(double power, int runtime) { //Positive power = backward, Negative power = forward (idk why pls no ask why)
         //Set wheels power to the value of power
-        frontLeft.setPower(power);
+        frontLeft.setPower(-power);
         frontRight.setPower(power);
-        backLeft.setPower(power);
+        backLeft.setPower(-power);
         backRight.setPower(power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -33,8 +33,8 @@ public class foundationRed extends LinearOpMode {
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
         //Set wheels power to the value of power
         frontLeft.setPower(power);
-        frontRight.setPower(-power);
-        backLeft.setPower(power);
+        frontRight.setPower(power);
+        backLeft.setPower(-power);
         backRight.setPower(-power);
         sleep(runtime); //Wait for runtime milliseconds
         //Set wheels power to 0
@@ -68,13 +68,9 @@ public class foundationRed extends LinearOpMode {
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
         capStone = hardwareMap.servo.get("CS");
-        //Since the wheels are flipped on the right side, we need to permanently reverse the direction of the right motors
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        //Set starting position of servos
-        foundationOne.setPosition(.8);
-        foundationTwo.setPosition(1);
-        capStone.setPosition(.8);
+        foundationOne.setPosition(1);
+        foundationTwo.setPosition(0);
+        //capStone.setPosition(.8);
 
 
         waitForStart();
@@ -86,13 +82,13 @@ public class foundationRed extends LinearOpMode {
         foundationOne.setPosition(1); foundationTwo.setPosition(1); //Set grippers up to release foundation
         sideways(.5, 5000); //Drive left in order to park under bridge
         //Total runtime: 15.10 sec*/
-        sideways(-.5, 3000); //Drive right to line up with the foundation
+        sideways(-.5, 2700); //Drive right to line up with the foundation
         forward(.5, 2500); //Drive backwards to foundation
-        foundationOne.setPosition(0); foundationTwo.setPosition(0); //Set grippers down to grab foundation
+        foundationOne.setPosition(0); foundationTwo.setPosition(1); //Set grippers down to grab foundation
         sleep(500); //Wait for servos to go all the way down
         forward(-.5, 4000); //Drive foundation back into building site
-        foundationOne.setPosition(1); foundationTwo.setPosition(1); //Set grippers up to release foundation
-        sideways(.5, 4700); //Drive left in order to park under bridge
+        foundationOne.setPosition(1); foundationTwo.setPosition(0); //Set grippers up to release foundation
+        sideways(.5, 5000); //Drive left in order to park under bridge
         //Total runtime: 14.20 sec
     }
 }
