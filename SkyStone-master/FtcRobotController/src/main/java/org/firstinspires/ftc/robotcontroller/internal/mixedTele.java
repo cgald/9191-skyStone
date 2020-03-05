@@ -37,6 +37,8 @@ public class mixedTele extends OpMode {
         foundationTwo = hardwareMap.servo.get("F2");
         capStone = hardwareMap.servo.get("CS");
         gripperChange = hardwareMap.crservo.get("GC");
+        foundationOne.setPosition(1);
+        foundationTwo.setPosition(0);
     }
 
     @Override

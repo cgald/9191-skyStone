@@ -28,7 +28,6 @@ public class foundationBlue extends LinearOpMode {
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
-
     }
 
     private void sideways(double power, int runtime) { //Positive power = right, Negative power = left
@@ -69,14 +68,15 @@ public class foundationBlue extends LinearOpMode {
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
         capStone = hardwareMap.servo.get("CS");
+        foundationOne.setPosition(1); foundationTwo.setPosition(0);
 
         waitForStart();
         sideways(.5, 2500); //Drive left to line up with the foundation
         forward(.5, 2700); //Drive backwards to foundation
-        foundationOne.setPosition(0); foundationTwo.setPosition(0); //Set grippers down to grab foundation
+        foundationOne.setPosition(0); foundationTwo.setPosition(1); //Set grippers down to grab foundation
         sleep(500); //Wait for servos to go all the way down
         forward(-.5, 3000); //Drive foundation back into building site
-        foundationOne.setPosition(1); foundationTwo.setPosition(1); //Set grippers up to release foundation
+        foundationOne.setPosition(1); foundationTwo.setPosition(0); //Set grippers up to release foundation
         sideways(-.5, 5200); //Drive right in order to park under bridge
         //Total runtime: 14.55 sec
     }
