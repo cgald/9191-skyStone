@@ -21,7 +21,8 @@ public class vectorTele extends OpMode {
     private CRServo counterServo;
     private Servo foundationOne;
     private Servo foundationTwo;
-    private Servo capStone;
+    private CRServo capStone;
+
     //private CRServo pushBlock;*/
     @Override
     //TODO: Intake on GP1; Fix foundation servos; Slow down rotator
@@ -40,7 +41,9 @@ public class vectorTele extends OpMode {
         foundationOne = hardwareMap.servo.get("F1");
         foundationTwo = hardwareMap.servo.get("F2");
         //pushBlock = hardwareMap.crservo.get("PB");
-        capStone = hardwareMap.servo.get("CS");
+        capStone = hardwareMap.crservo.get("CS");
+
+
     }
 
     @Override
@@ -65,10 +68,10 @@ public class vectorTele extends OpMode {
 
 
         double throtle = (1 + gamepad1.left_trigger - gamepad1.right_trigger);
-        final double v1 = (gamepad1.left_stick_x - gamepad1.left_stick_y ) / 1.69 + gamepad1.right_stick_x ;
-        final double v2 = (-gamepad1.left_stick_x - gamepad1.left_stick_y ) / 1.69 - gamepad1.right_stick_x;
-        final double v3 = (-gamepad1.left_stick_x  - gamepad1.left_stick_y ) / 1.69 + gamepad1.right_stick_x;
-        final double v4 = (gamepad1.left_stick_x - gamepad1.left_stick_y ) / 1.69 - gamepad1.right_stick_x;
+        final double v1 = (gamepad1.left_stick_x - gamepad1.left_stick_y) / 1.69 + gamepad1.right_stick_x;
+        final double v2 = (-gamepad1.left_stick_x - gamepad1.left_stick_y) / 1.69 - gamepad1.right_stick_x;
+        final double v3 = (-gamepad1.left_stick_x - gamepad1.left_stick_y) / 1.69 + gamepad1.right_stick_x;
+        final double v4 = (gamepad1.left_stick_x - gamepad1.left_stick_y) / 1.69 - gamepad1.right_stick_x;
         frontLeft.setPower(v1 * throtle);
         frontRight.setPower(-v2 * throtle);
         backLeft.setPower(v3 * throtle);
@@ -83,34 +86,37 @@ public class vectorTele extends OpMode {
         linearLift.setPower(gamepad2.left_trigger * -.14);
 
 
-        if(gamepad2.a){
+        if (gamepad2.a) {
             gripperLeft.setPower(1);
             gripperRight.setPower(-1);
-        } else if(gamepad2.y){
+        } else if (gamepad2.y) {
             gripperRight.setPower(1);
             gripperLeft.setPower(-1);
         } else {
             gripperLeft.setPower(0);
             gripperRight.setPower(0);
         }
-        if(gamepad2.x){
-            gripperChange.setPower(1);
-        } else if(gamepad2.b){
-            gripperChange.setPower(-1);
-        } else{
+        if (gamepad2.x) {
+            gripperChange.setPower(.65);
+        } else if (gamepad2.b) {
+            gripperChange.setPower(-.65);
+        } else {
             gripperChange.setPower(0);
 
-        }if(gamepad1.y){
+        }
+        if (gamepad1.y) {
             foundationOne.setPosition(foundationOne.getPosition() - .01);
             foundationTwo.setPosition(foundationTwo.getPosition() + .01);
-        } else if(gamepad1.a) {
-            foundationOne.setPosition(foundationOne.getPosition() + .01);
-            foundationTwo.setPosition(foundationTwo.getPosition() - .01);
-        } if(gamepad1.left_bumper){
-            capStone.setPosition(capStone.getPosition() - .01);
-        } else if(gamepad1.right_bumper){
-            capStone.setPosition(capStone.getPosition() + .01);
+        } else if (gamepad1.a) {
+            foundationOne.setPosition(foundationOne.getPosition() + .02);
+            foundationTwo.setPosition(foundationTwo.getPosition() - .02);
+        } if (gamepad1.left_bumper) {
+                capStone.setPower(1);
+            } else if (gamepad1.right_bumper) {
+                capStone.setPower(-1);
+            } else {
+                capStone.setPower(0);
+
         }
-        telemetry.addData("CS Pos :: ", capStone.getPosition());
     }
 }

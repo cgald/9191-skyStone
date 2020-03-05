@@ -70,6 +70,9 @@ public class foundationBlue extends LinearOpMode {
         capStone = hardwareMap.servo.get("CS");
         foundationOne.setPosition(1); foundationTwo.setPosition(0);
 
+        foundationOne.setPosition(1);
+        foundationTwo.setPosition(0);
+
         waitForStart();
         sideways(.5, 2500); //Drive left to line up with the foundation
         forward(.5, 2700); //Drive backwards to foundation
