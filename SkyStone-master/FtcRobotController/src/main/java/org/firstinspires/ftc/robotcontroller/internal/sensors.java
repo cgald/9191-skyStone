@@ -33,14 +33,15 @@ public class sensors extends OpMode {
         telemetry.addData("Green : ", colorSensor.green());
         telemetry.addData("Blue  : ", colorSensor.blue());
         telemetry.addData("argb", colorSensor.argb());
-        telemetry.addData("touch", touch.getState());
+        telemetry.addData("touch", !touch.getState());
+        telemetry.addData("servo", servo1.getPosition());
         telemetry.update();
 
         if(colorSensor.red() > 200){
             servo1.setPosition(servo1.getPosition() + .01);
-        } else if(!touch.getState()){
+        } else if(colorSensor.blue() > 200) {
             servo1.setPosition(servo1.getPosition() - .01);
-        } if(colorSensor.blue() > 200) {
+        } if(!touch.getState()){
             servo1.setPosition(servo1.getPosition() - .01);
         }
     }
